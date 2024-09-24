@@ -6,7 +6,6 @@ from sqlalchemy.orm import sessionmaker
 from sqlmodel import create_engine, text
 from src.config import Config
 from sqlmodel import SQLModel
-from src.books.models import Book
 
 
 engine = AsyncEngine(create_engine(
@@ -19,7 +18,10 @@ async def initdb():
     """create our database models in the database"""
 
     async with engine.begin() as conn:
+        from src.books.models import Book
+        
         await conn.run_sync(SQLModel.metadata.create_all)
+
 
 
 # Dependency Injections
