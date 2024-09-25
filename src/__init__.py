@@ -6,7 +6,9 @@ from src.db.main import init_db
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):    
+async def lifespan(app: FastAPI):
+    print(f"server is startting.... ") 
+    from src.books.models import Book   
     await init_db()
     yield
     print("server is stopping")
@@ -20,4 +22,4 @@ app = FastAPI(
     lifespan=lifespan # add the lifespan event to our application
 )
 
-app.include_router(book_router,prefix="/books",tags=['books'])
+app.include_router(book_router, prefix=f"/api/{version}/books", tags=['books'])
