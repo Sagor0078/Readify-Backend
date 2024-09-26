@@ -21,3 +21,8 @@ class UserModel(BaseModel):
     is_verified: bool
     created_at: datetime 
     updated_at: datetime 
+
+
+class UserLoginModel(BaseModel):
+    email: str = Field(max_length=40)
+    password: str = Field(max_length=6)
