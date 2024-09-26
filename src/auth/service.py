@@ -1,5 +1,3 @@
-
-
 from sqlmodel import select
 from .models import User
 from sqlmodel.ext.asyncio.session import AsyncSession
@@ -15,16 +13,12 @@ class UserService:
 
         user = result.first()
         return user
-    
 
-    
     async def user_exists(self, email, session: AsyncSession):
         user = await self.get_user_by_email(email, session)
 
         return True if user is not None else False
 
-
-    
     async def create_user(self, user_data: UserCreateModel, session: AsyncSession):
 
         user_data_dict = user_data.model_dump()
@@ -35,6 +29,5 @@ class UserService:
 
         session.add(new_user)
         await session.commit()
-        
+
         return new_user
-    
