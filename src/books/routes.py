@@ -7,12 +7,12 @@ from src.db.main import get_session
 from sqlmodel.ext.asyncio.session import AsyncSession
 from src.books.schemas import Book, BookUpdateModel, BookCreateModel
 from fastapi import FastAPI, APIRouter, status, Depends
-from src.auth.dependencies import AccessTokenBearer
+from src.auth.dependencies import TokenBearer
 
 
 book_router = APIRouter()
 book_service = BookService()
-access_toeken_bearer = AccessTokenBearer()
+access_toeken_bearer = TokenBearer()
 
 
 @book_router.get("/", response_model=List[Book])
