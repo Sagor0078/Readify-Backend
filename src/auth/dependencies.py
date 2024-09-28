@@ -18,21 +18,32 @@ class TokenBearer(HTTPBearer):
 
         token_data = decode_token(token)
 
+        # Check if token_data is None before accessing it
+        if token_data is None:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail={
+                    "error": "Invalid or expired token",
+                    "resolution": "Please provide a valid token",
+                },
+            )
+
+        # Check if the token is in the blocklist
+        if await token_in_blocklist(token_data["jti"]):
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail={
+                    "error": "This token is invalid or has been revoked",
+                    "resolution": "Please get a new token",
+                },
+            )
+
         if not self.token_valid(token):
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail={
                     "error": "This token is invalid or expired",
-                    "resolution": "Please get new token",
-                },
-            )
-
-        if await token_in_blocklist(token_data["jti"]):
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail={
-                    "error": "this is token is valid or has been revoked",
-                    "resolution": "please get new token",
+                    "resolution": "Please get a new token",
                 },
             )
 
@@ -41,9 +52,7 @@ class TokenBearer(HTTPBearer):
         return token_data
 
     def token_valid(self, token: str) -> bool:
-
         token_data = decode_token(token)
-
         return token_data is not None
 
     def verify_token_data(self, token_data):
@@ -53,7 +62,7 @@ class TokenBearer(HTTPBearer):
 class AccessTokenBearer(TokenBearer):
 
     def verify_token_data(self, token_data: dict) -> None:
-        if token_data and token_data["refresh"]:
+        if token_data and token_data.get("refresh", False):
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail="Please provide an access token",
@@ -61,9 +70,8 @@ class AccessTokenBearer(TokenBearer):
 
 
 class RefreshTokenBearer(TokenBearer):
-
     def verify_token_data(self, token_data: dict) -> None:
-        if token_data and not token_data["refresh"]:
+        if token_data and not token_data.get("refresh", True):
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail="Please provide a refresh token",

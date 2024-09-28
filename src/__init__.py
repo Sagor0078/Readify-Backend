@@ -4,6 +4,8 @@ from src.books.routes import book_router
 from src.auth.routes import auth_router
 from contextlib import asynccontextmanager
 from src.db.main import init_db
+from redis.asyncio import Redis # type: ignore
+
 
 
 @asynccontextmanager
