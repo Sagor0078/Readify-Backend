@@ -21,8 +21,7 @@ version = "v1"
 app = FastAPI(
     title="Readify-Backend",
     description="A REST API for book review web service",
-    version=version,
-    lifespan=lifespan # add the lifespan event to our application
+    version=version
 )
 
 app.include_router(book_router, prefix=f"/api/{version}/books", tags=['books'])

@@ -20,6 +20,9 @@ class User(SQLModel, table = True):
     email: str = Field(nullable=False)     # Use Field() for email
     first_name: str = Field(nullable=False) # Use Field() for first_name
     last_name: str = Field(nullable=False)  # Use Field() for last_name
+    role: str = Field(sa_column=Column(
+        pg.VARCHAR, nullable=False, server_default= "user"
+    ))
     password_hash: str = Field(exclude=True)
     is_verified: bool = Field(default=False)
     created_at: datetime = Field(default_factory=datetime.now)
