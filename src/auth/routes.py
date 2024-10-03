@@ -1,6 +1,5 @@
 # src/auth/routes.py
 from fastapi import APIRouter, Depends, status
-from .schemas import UserLoginModel
 from .service import UserService
 from src.db.main import get_session
 from sqlmodel.ext.asyncio.session import AsyncSession
@@ -14,12 +13,12 @@ from .dependencies import (
     get_current_user,
     RoleChecker,
 )
-from .schemas import UserCreateModel, UserLoginModel, UserModel
+from .schemas import UserCreateModel, UserLoginModel, UserModel, UserBooksModel
 from src.db.redis import add_jti_to_blocklist
 
 auth_router = APIRouter()
 user_service = UserService()
-role_checker = RoleChecker(["admin","user"])
+role_checker = RoleChecker(["admin", "user"])
 
 REFRESH_TOKEN_EXPIRY = 2
 
@@ -98,7 +97,7 @@ async def get_new_access_token(token_details: dict = Depends(RefreshTokenBearer(
     )
 
 
-@auth_router.get("/me")
+@auth_router.get("/me", response_model=UserBooksModel)
 async def get_current_user(
     user=Depends(get_current_user), _: bool = Depends(role_checker)
 ):
