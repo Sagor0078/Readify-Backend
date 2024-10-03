@@ -4,7 +4,6 @@ from datetime import datetime, date
 from typing import List, Optional
 import uuid
 
-
 class User(SQLModel, table=True):
     __tablename__ = "users"
 
@@ -16,17 +15,17 @@ class User(SQLModel, table=True):
             default=uuid.uuid4,
         )
     )
-    username: str = Field(nullable=False)  # Use Field() for username
-    email: str = Field(nullable=False)  # Use Field() for email
-    first_name: str = Field(nullable=False)  # Use Field() for first_name
-    last_name: str = Field(nullable=False)  # Use Field() for last_name
+    username: str = Field(nullable=False)
+    email: str = Field(nullable=False)
+    first_name: str = Field(nullable=False)
+    last_name: str = Field(nullable=False)
     role: str = Field(
         sa_column=Column(pg.VARCHAR, nullable=False, server_default="user")
     )
     password_hash: str = Field(exclude=True)
     is_verified: bool = Field(default=False)
-    created_at: datetime = Field(default_factory=datetime.now)
-    updated_at: datetime = Field(default_factory=datetime.now)
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
     books: List["Book"] = Relationship(
         back_populates="user", sa_relationship_kwargs={"lazy": "selectin"}
     )
@@ -36,7 +35,6 @@ class User(SQLModel, table=True):
 
     def __repr__(self):
         return f"<User {self.username}>"
-
 
 class Book(SQLModel, table=True):
     __tablename__ = "books"
@@ -59,8 +57,8 @@ class Book(SQLModel, table=True):
     page_count: int
     language: str
     user_uid: Optional[uuid.UUID] = Field(default=None, foreign_key="users.uid")
-    created_at: datetime = Field(sa_column=Column(pg.TIMESTAMP, default=datetime.now))
-    updated_at: datetime = Field(sa_column=Column(pg.TIMESTAMP, default=datetime.now))
+    created_at: datetime = Field(sa_column=Column(pg.TIMESTAMP, default=datetime.utcnow))
+    updated_at: datetime = Field(sa_column=Column(pg.TIMESTAMP, default=datetime.utcnow))
     user: Optional[User] = Relationship(back_populates="books")
     reviews: List["Review"] = Relationship(
         back_populates="book", sa_relationship_kwargs={"lazy": "selectin"}
@@ -69,7 +67,6 @@ class Book(SQLModel, table=True):
     def __repr__(self) -> str:
         return f"<Book {self.title}>"
 
-
 class Review(SQLModel, table=True):
     __tablename__ = "reviews"
 
@@ -77,18 +74,16 @@ class Review(SQLModel, table=True):
         sa_column=Column(
             pg.UUID,
             primary_key=True,
-            unique=True,
             nullable=False,
-            default=uuid.uuid4,
-            info={"description": "Unique identifier for the review table"},
+            default=uuid.uuid4
         )
     )
-    ratings: int = Field(lt=5)
+    ratings: int = Field(ge=1, le=5)  # Restricting ratings between 1 and 5
     review_text: str 
     user_uid: Optional[uuid.UUID] = Field(default=None, foreign_key="users.uid")
     book_uid: Optional[uuid.UUID] = Field(default=None, foreign_key="books.uid")
-    created_at: datetime = Field(sa_column=Column(pg.TIMESTAMP, default=datetime.now))
-    updated_at: datetime = Field(sa_column=Column(pg.TIMESTAMP, default=datetime.now))
+    created_at: datetime = Field(sa_column=Column(pg.TIMESTAMP, default=datetime.utcnow))
+    updated_at: datetime = Field(sa_column=Column(pg.TIMESTAMP, default=datetime.utcnow))
     user: Optional[User] = Relationship(back_populates="reviews")
     book: Optional[Book] = Relationship(back_populates="reviews")
 
