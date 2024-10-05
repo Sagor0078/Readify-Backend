@@ -10,9 +10,9 @@
     - 💾 [PostgreSQL](https://www.postgresql.org) as the SQL 
     database.
     - [Redis](https://redis.io/) as in memory caching
-    - [SQLELECTRON](https://sqlectron.github.io) A simple and  lightweight SQL client desktop/terminal
-    with cross database and platform support
-    -[Postman](https://www.postman.com/) Postman is an API platform for building and using APIs. It offers a set of tools, a repository, workspaces, and governance to simplify and streamline the API lifecycle.
+    - [SQLELECTRON](https://sqlectron.github.io) A simple and  lightweight SQL client desktop/terminal with cross database and platform support
+    -[Postman](https://www.postman.com/) Postman is an API platform for building and using APIs. It offers a set of tools, a repository, workspaces, and governance to simplify and streamline the 
+    API lifecycle.
 
 
 - 🐋 [Docker Compose](https://www.docker.com) for development and production.
@@ -20,6 +20,7 @@
 - 🔑 JWT (JSON Web Token) authentication.
 - 📫 Email based password recovery.
 - ✅ Tests with [Pytest](https://pytest.org).
+- Continue.....
 
 - 🚢 Deployment instructions using Docker Compose, including how to set up a frontend Traefik proxy to handle automatic HTTPS certificates.
 - 🏭 CI (continuous integration) and CD (continuous deployment) based on GitHub Actions.
