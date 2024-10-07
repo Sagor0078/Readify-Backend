@@ -10,8 +10,9 @@
     - 💾 [PostgreSQL](https://www.postgresql.org) as the SQL 
     database.
     - [Redis](https://redis.io/) as in memory caching
-    - [SQLELECTRON](https://sqlectron.github.io) A simple and  lightweight SQL client desktop/terminal
-    with cross database and platform support
+    
+    - [SQLELECTRON](https://sqlectron.github.io) A simple and  lightweight SQL client desktop/terminal with cross database and platform support
+
     -[Postman](https://www.postman.com/) Postman is an API platform for building and using APIs. It offers a set of tools, a repository, workspaces, and governance to simplify and streamline the API lifecycle.
 
 

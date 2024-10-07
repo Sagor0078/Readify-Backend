@@ -1,9 +1,6 @@
 from typing import List
-
 from fastapi import APIRouter, Depends, status
 from sqlmodel.ext.asyncio.session import AsyncSession
-
-
 from src.auth.dependencies import RoleChecker
 from src.books.schemas import Book
 from src.db.main import get_session
