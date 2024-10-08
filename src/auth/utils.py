@@ -1,11 +1,11 @@
-import logging
-import uuid
-from datetime import datetime, timedelta
-
 import jwt
-from passlib.context import CryptContext
-
+import uuid
+import logging
 from src.config import Config
+from datetime import datetime, timedelta
+from passlib.context import CryptContext
+from itsdangerous import URLSafeTimedSerializer
+
 
 # Initialize password hashing context
 passwd_context = CryptContext(schemes=["bcrypt"])
@@ -58,3 +58,23 @@ def decode_token(token: str) -> dict:
     except Exception as e:
         logging.exception("An error occurred while decoding the token.")
         return None
+
+
+serializer = URLSafeTimedSerializer(
+    secret_key= Config.JWT_SECRET,
+    salt = "email-verification"
+)
+
+def create_url_safe_token(data: dict):
+    
+    token = serializer.dumps(data)
+
+    return token
+
+def decode_url_safe_token(token:str):
+    try:
+        token_data = serializer.loads(token)
+        return token_data
+    except Exception as e:
+        logging.error(str(e))
+

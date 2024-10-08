@@ -11,7 +11,7 @@ MAIL_SERVER="smtp.gmail.com"
 MAIL_PORT=587
 MAIL_FROM="musagor78@gmail.com"
 MAIL_FROM_NAME="Book-Store"
-DOMAIN="localhost:8000"
+# DOMAIN="localhost:8000"
 
 
 
