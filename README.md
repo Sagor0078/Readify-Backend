@@ -6,7 +6,7 @@
     - 🧰 [SQLAlchemy](https://www.sqlalchemy.org/) for Python SQL Toolkit and Object Relational Mapper (ORM).
     - 🔍 [Pydantic](https://docs.pydantic.dev) for data validation and settings management.
     - 💾 [PostgreSQL](https://www.postgresql.org) as the SQL database.
-    - ![Redis](https://redis.io/images/redis-logo.png) [Redis](https://redis.io/) for in-memory caching.
+    - ⛁ [Redis](https://redis.io/) for in-memory caching.
     - ⛃ [SQLElectron](https://sqlectron.github.io) - A simple and lightweight SQL client desktop/terminal with cross-database and platform support.
     - 👮‍♂️ [Postman](https://www.postman.com/) for API testing and management.
     - 🔁 [Alembic](https://alembic.sqlalchemy.org) as a lightweight database migration tool for SQLAlchemy.
@@ -31,4 +31,4 @@
   - Permission-related errors (e.g., insufficient permissions).
   - Resource-related errors (e.g., book or tag not found).
 
-This ensures that the API responds with clear and consistent error messages, improving the developer experience and facilitating easier debugging.
+# Continue....
