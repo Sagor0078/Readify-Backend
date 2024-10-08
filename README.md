@@ -6,15 +6,16 @@
     - 🧰 [SQLAlchemy](https://www.sqlalchemy.org/) for Python SQL Toolkit and Object Relational Mapper (ORM).
     - 🔍 [Pydantic](https://docs.pydantic.dev) for data validation and settings management.
     - 💾 [PostgreSQL](https://www.postgresql.org) as the SQL database.
-    - ⛁ [Redis](https://redis.io/) for in-memory caching.
-    - ⛃ [SQLElectron](https://sqlectron.github.io) A simple and lightweight SQL client desktop/terminal with cross-database and platform support.
+    - ![Redis](https://redis.io/images/redis-logo.png) [Redis](https://redis.io/) for in-memory caching.
+    - ⛃ [SQLElectron](https://sqlectron.github.io) - A simple and lightweight SQL client desktop/terminal with cross-database and platform support.
     - 👮‍♂️ [Postman](https://www.postman.com/) for API testing and management.
     - 🔁 [Alembic](https://alembic.sqlalchemy.org) as a lightweight database migration tool for SQLAlchemy.
 
 - 🐋 [Docker Compose](https://www.docker.com) for development and production.
 - 🔒 Secure password hashing by default.
 - 🔑 JWT (JSON Web Token) authentication.
-- 📫 Email-based password recovery.
+- 📫 Email-based password recovery and verification.
+- 📧 **Email Authentication System**: Users must verify their email addresses upon registration. An email containing a verification link is sent to the user's registered email address. The user must click the link to activate their account before logging in.
 - ✅ Tests with [Pytest](https://pytest.org).
 
 ## Middleware and CORS
@@ -31,5 +32,3 @@
   - Resource-related errors (e.g., book or tag not found).
 
 This ensures that the API responds with clear and consistent error messages, improving the developer experience and facilitating easier debugging.
-
-## Continue...
