@@ -1,4 +1,4 @@
-# Readify-Backend 
+# Readify-Backend
 
 ## Technology Stack and Features
 
@@ -6,7 +6,8 @@
     - 🧰 [SQLAlchemy](https://www.sqlalchemy.org/) for Python SQL Toolkit and Object Relational Mapper (ORM).
     - 🔍 [Pydantic](https://docs.pydantic.dev) for data validation and settings management.
     - 💾 [PostgreSQL](https://www.postgresql.org) as the SQL database.
-    - ⛁ [Redis](https://redis.io/) for in-memory caching.
+    - ⛁ [Redis](https://redis.io/) for in-memory caching and as a message broker for Celery.
+    - 🐍 [Celery](https://docs.celeryproject.org/en/stable/) for background processing and task management.
     - ⛃ [SQLElectron](https://sqlectron.github.io) - A simple and lightweight SQL client desktop/terminal with cross-database and platform support.
     - 👮‍♂️ [Postman](https://www.postman.com/) for API testing and management.
     - 🔁 [Alembic](https://alembic.sqlalchemy.org) as a lightweight database migration tool for SQLAlchemy.
@@ -31,4 +32,20 @@
   - Permission-related errors (e.g., insufficient permissions).
   - Resource-related errors (e.g., book or tag not found).
 
-# Continue....
+## Background Processing with Celery
+
+### Overview
+Celery is integrated into the Readify-Backend to handle asynchronous tasks and background processing. This allows the API to offload time-consuming operations, improving response times and overall user experience.
+
+### Features
+- **Asynchronous Task Queue**: Celery enables the execution of tasks in the background, freeing up the main thread to handle incoming requests.
+- **Task Scheduling**: You can schedule tasks to run at specific intervals or times, making it ideal for repetitive jobs.
+- **Redis as Broker**: Redis is used as the message broker, facilitating communication between the FastAPI app and Celery workers.
+
+### Installation
+To set up Celery, ensure you have Redis running and then install the necessary dependencies:
+```bash
+pip install celery[redis]
+```
+
+## Continue...:(
