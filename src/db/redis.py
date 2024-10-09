@@ -4,10 +4,10 @@ from redis import asyncio as aioredis
 from src.config import Config
 
 JTI_EXPIRY = 3600
+REDIS_URL = "redis://localhost:6379/0"
 
-token_blocklist = aioredis.StrictRedis(
-    host=Config.REDIS_HOST, port=Config.REDIS_PORT, db=0
-)
+token_blocklist = aioredis.from_url(REDIS_URL)
+  
 
 
 async def add_jti_to_blocklist(jti: str) -> None:

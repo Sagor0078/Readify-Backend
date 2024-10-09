@@ -6,6 +6,7 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from fastapi.exceptions import HTTPException
 from fastapi.responses import JSONResponse
 from datetime import timedelta, datetime
+from src.celery_tasks import send_email
 from src.db.redis import add_jti_to_blocklist
 from src.mail import create_message, mail_config, mail
 from src.errors import InvalidCredentials, UserAlreadyExists, UserNotFound, InvalidToken
@@ -48,8 +49,8 @@ async def send_mail(emails: EmailsModel):
 
     html = "<h1>Welcome to the app</h1>"
     subject = "Welcome to our app"
-    message = create_message(recipients=emails, subject=subject, body=html)
-    await mail.send_message(message)
+    
+    send_email.delay(emails, subject, html)
     return {"message": "Email sent successfully"}
 
 
@@ -72,16 +73,14 @@ async def create_user_Account(
 
     link = f"http://{Config.DOMAIN}/api/v1/auth/verify/{token}"
 
-    html_message = f"""
+    html = f"""
     <h1>Verify your Email</h1>
     <p>Please click this <a href="{link}">link</a> to verify your email</p>
     """
-
-    message = create_message(
-        recipients=[email], subject="Verify your email", body=html_message
-    )
-
-    await mail.send_message(message)
+    emails = [email]
+    subject="Verify your email"
+    
+    send_email.delay(emails, subject, html)
 
     return {
         "message": "Account Created! Check email to verify your account",
