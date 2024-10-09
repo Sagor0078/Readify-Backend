@@ -83,6 +83,7 @@ class AccountNotVerified(Exception):
     pass
 
 
+
 def create_exception_handler(
     status_code: int, initial_detail: Any
 ) -> Callable[[Request, Exception], JSONResponse]:
@@ -227,7 +228,7 @@ def register_all_errors(app: FastAPI):
             initial_detail={
                 "message": "Account Not verified",
                 "error_code": "account_not_verified",
-                "resolution": "Please check your email for verification details",
+                "resolution": "check your email for verification details",
             },
         ),
     )

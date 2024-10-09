@@ -14,7 +14,8 @@ from src.errors import(
     InvalidToken,
     RefreshTokenRequired,
     AccessTokenRequired,
-    InsufficientPermission
+    InsufficientPermission,
+    AccountNotVerified
 )
 
 user_service = UserService()
@@ -81,7 +82,10 @@ class RoleChecker:
         self.allowed_roles = allowed_roles
     
     def __call__(self, current_user: User = Depends(get_current_user)) -> Any:
-        # pass
+
+        if not current_user.is_verified:
+            raise AccountNotVerified()
+        
         if current_user.role in self.allowed_roles:
             return True
         raise InsufficientPermission()

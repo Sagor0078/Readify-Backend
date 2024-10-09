@@ -37,3 +37,10 @@ class UserLoginModel(BaseModel):
 
 class EmailsModel(BaseModel):
     address : List[str]
+
+class PasswordResetRequestModel(BaseModel):
+    email : str
+
+class PasswordResetConfirmModel(BaseModel):
+    new_password: str
+    confirm_new_password: str

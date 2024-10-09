@@ -22,6 +22,8 @@ from .schemas import (
     UserModel,
     UserBooksModel,
     EmailsModel,
+    PasswordResetRequestModel,
+    PasswordResetConfirmModel
 )
 
 from .utils import (
@@ -30,6 +32,7 @@ from .utils import (
     decode_token,
     create_url_safe_token,
     decode_url_safe_token,
+    generate_password_hash
 )
 
 auth_router = APIRouter()
@@ -179,3 +182,63 @@ async def revoke_token(token_details: dict = Depends(AccessTokenBearer())):
     return JSONResponse(
         content={"message": "Logged Out Successfully"}, status_code=status.HTTP_200_OK
     )
+
+@auth_router.post("/password-reset-request")
+async def password_reset_request(email_data: PasswordResetRequestModel):
+
+    email = email_data.email
+
+    token = create_url_safe_token({"email": email})
+
+    link = f"http://{Config.DOMAIN}/api/v1/auth/password-reset-confirm/{token}"
+
+    html_message = f"""
+    <h1>Reset your password</h1>
+    <p>Please click this <a href="{link}">link</a> to Reset Your Password</p>
+    """
+
+    message = create_message(
+        recipients=[email], subject="Reset Your Password", body=html_message
+    )
+
+    await mail.send_message(message)
+
+    return JSONResponse(
+        content={
+            "message": "Please check your email instructions to reset your password"
+        },
+        status_code=status.HTTP_200_OK
+    )
+
+@auth_router.post("/password-reset-confirm/{token}")
+async def verify_user_account(token: str, passwords: PasswordResetConfirmModel, session: AsyncSession = Depends(get_session)):
+    
+    new_password = passwords.new_password
+    confirm_password = passwords.confirm_new_password
+
+    if new_password != confirm_password:
+        raise HTTPException(detail="Password do not match", status_code=status.HTTP_404_BAD_REQUEST)
+        
+    
+    token_data = decode_url_safe_token(token)
+
+    user_email = token_data.get("email")
+
+    if user_email:
+        user = await user_service.get_user_by_email(user_email, session)
+
+        if not user:
+            raise UserNotFound()
+        password_hash = generate_password_hash(new_password)
+        await user_service.update_user(user, {"password_hash": password_hash}, session)
+
+        return JSONResponse(
+            content={"message": "Password reset Successfully"},
+            status_code=status.HTTP_200_OK,
+        )
+
+    return JSONResponse(
+        content={"message": "Error occured during password reset"},
+        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+    )
+
