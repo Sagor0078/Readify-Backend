@@ -1,7 +1,13 @@
 from src.auth.schemas import UserCreateModel
-from .confest import fake_session,fake_user_service,test_client
+from .confest import fake_session, fake_user_service, test_client
+import warnings
+
+# Suppress specific warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning, module="passlib.utils")
+
 
 auth_prefix = f"/api/v1/auth"
+
 
 def test_user_creation(fake_session, fake_user_service, test_client):
     signup_data = {
@@ -9,7 +15,7 @@ def test_user_creation(fake_session, fake_user_service, test_client):
         "last_name": "Sagor",
         "username": "sagor9",
         "email": "musagor78@gmail.com",
-        "password": "123456"
+        "password": "123456",
     }
     response = test_client.post(
         url=f"{auth_prefix}/signup",
@@ -19,9 +25,12 @@ def test_user_creation(fake_session, fake_user_service, test_client):
     user_data = UserCreateModel(**signup_data)
 
     assert fake_user_service.user_exists_called_once()
-    # assert fake_user_service.user_exists_called_once_with(signup_data['email'], fake_session)
-    # assert fake_user_service.create_user_called_once()
-    # assert fake_user_service.create_user_called_once_with(user_data, fake_session)
+    assert fake_user_service.user_exists_called_once_with(
+        signup_data["email"], fake_session
+    )
+    assert fake_user_service.create_user_called_once()
+    assert fake_user_service.create_user_called_once_with(user_data, fake_session)
+
 
 """
   1. didn't solve the warnigs issue 
