@@ -48,4 +48,4 @@ To set up Celery, ensure you have Redis running and then install the necessary d
 pip install celery[redis]
 ```
 
-## Continue...:(
+## Continue...
