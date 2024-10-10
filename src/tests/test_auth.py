@@ -22,3 +22,9 @@ def test_user_creation(fake_session, fake_user_service, test_client):
     # assert fake_user_service.user_exists_called_once_with(signup_data['email'], fake_session)
     # assert fake_user_service.create_user_called_once()
     # assert fake_user_service.create_user_called_once_with(user_data, fake_session)
+
+"""
+  1. didn't solve the warnigs issue 
+  2. pip install httx needed to require during the test
+  3. continue.... 
+"""
