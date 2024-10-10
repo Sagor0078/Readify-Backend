@@ -48,4 +48,16 @@ To set up Celery, ensure you have Redis running and then install the necessary d
 pip install celery[redis]
 ```
 
+## Unit and Mock Testing
+
+### Overview
+Unit testing and mocking are essential for ensuring the reliability and correctness of your application. This project uses [Pytest](https://pytest.org) for testing.
+
+### Setting Up Testing
+1. **Install Dependencies**:
+   Make sure you have the necessary testing libraries installed:
+   ```bash
+   pip install pytest pytest-mock
+   ```
+
 ## Continue...
