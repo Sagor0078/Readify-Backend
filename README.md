@@ -60,4 +60,9 @@ Unit testing and mocking are essential for ensuring the reliability and correctn
    pip install pytest pytest-mock
    ```
 
+### Folder & file Directory
+
+[![Directory docs](img/direct.png)](https://github.com/Sagor0078/Readify-Backend)
+
+
 ## Continue...
