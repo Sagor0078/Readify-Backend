@@ -61,7 +61,7 @@ Unit testing and mocking are essential for ensuring the reliability and correctn
    ```
 [![Test image](img/test.png)](https://github.com/Sagor0078/Readify-Backend)
 
-## Directory
+## Final Directory
 
 [![Directory docs](img/direct.png)](https://github.com/Sagor0078/Readify-Backend)
 
@@ -75,6 +75,7 @@ The Dockerfile sets up the environment for the Readify-Backend application. It u
   ```bash
   sudo docker build -t fastapi-app .
   ```
+[![Docker Images](img/docker.png)](https://github.com/Sagor0078/Readify-Backend)
 
 ### Run the Docker Container:
 
