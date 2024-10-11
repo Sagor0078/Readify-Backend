@@ -61,9 +61,26 @@ Unit testing and mocking are essential for ensuring the reliability and correctn
    ```
 [![Test image](img/test.png)](https://github.com/Sagor0078/Readify-Backend)
 
-## Folder & file Directory
+## Directory
 
 [![Directory docs](img/direct.png)](https://github.com/Sagor0078/Readify-Backend)
+
+
+## Dockerfile
+
+The Dockerfile sets up the environment for the Readify-Backend application. It utilizes a lightweight Python image and includes all necessary dependencies.
+
+### Build the Docker Image:
+
+  ```bash
+  sudo docker build -t fastapi-app .
+  ```
+
+### Run the Docker Container:
+
+  ```bash
+  docker run -p 8000:8000 fastapi-app
+  ```
 
 
 ## Continue...
