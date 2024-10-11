@@ -79,7 +79,7 @@ The Dockerfile sets up the environment for the Readify-Backend application. It u
 ### Run the Docker Container:
 
   ```bash
-  docker run -p 8000:8000 fastapi-app
+  sudo docker run -p 8000:8000 fastapi-app
   ```
 
 
