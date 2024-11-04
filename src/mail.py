@@ -6,7 +6,7 @@ import os
 BASE_DIR = Path(__file__).resolve().parent
 
 MAIL_USERNAME = "musagor78@gmail.com"
-MAIL_PASSWORD = "sqkn zmbu sjnr nrzk"
+MAIL_PASSWORD = ""
 MAIL_SERVER="smtp.gmail.com"
 MAIL_PORT=587
 MAIL_FROM="musagor78@gmail.com"

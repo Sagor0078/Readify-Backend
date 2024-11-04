@@ -45,7 +45,7 @@ Celery is integrated into the Readify-Backend to handle asynchronous tasks and b
 ### Installation
 To set up Celery, ensure you have Redis running and then install the necessary dependencies:
 ```bash
-pip install celery[redis]
+pip install celery
 ```
 
 ## Unit and Mock Testing
