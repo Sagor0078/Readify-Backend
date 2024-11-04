@@ -19,6 +19,9 @@ jobs:
       JWT_ALGORITHM: ${{ secrets.JWT_ALGORITHM }}
       REDIS_HOST: ${{ secrets.REDIS_HOST }}
       MAIL_FROM_NAME: ${{ secrets.MAIL_FROM_NAME }}
+      MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+      MAIL_FROM: ${{ secrets.MAIL_FROM }}
+      MAIL_SERVER: ${{ secrets.MAIL_SERVER }}
 
     steps:
     - name: Checkout code
