@@ -22,6 +22,7 @@ jobs:
       MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
       MAIL_FROM: ${{ secrets.MAIL_FROM }}
       MAIL_SERVER: ${{ secrets.MAIL_SERVER }}
+      MAIL_PORT: ${{ secrets.MAIL_PORT }}
 
     steps:
     - name: Checkout code
