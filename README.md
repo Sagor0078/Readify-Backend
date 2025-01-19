@@ -60,6 +60,17 @@ Unit testing and mocking are essential for ensuring the reliability and correctn
    pip install pytest pytest-mock
    ```
 
+
+
+### Code Formatting with Black
+
+To ensure consistent code formatting, this project uses [Black](https://black.readthedocs.io/en/stable/). Install Black using pip:
+
+```bash
+pip install black
+
+```
+
 ## Directory
 
 [![Directory docs](img/direct.png)](https://github.com/Sagor0078/Readify-Backend)
