@@ -8,6 +8,8 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from src.books.schemas import Book, BookUpdateModel, BookCreateModel, BookDetailModel
 from fastapi import FastAPI, APIRouter, status, Depends
 from src.auth.dependencies import AccessTokenBearer, RoleChecker
+from aiocache import cached
+from aiocache.decorators import cached
 
 
 from src.errors import(
@@ -22,6 +24,7 @@ role_checker = Depends(RoleChecker(["admin", "user"]))
 
 
 @book_router.get("/", response_model=List[Book], dependencies=[role_checker])
+@cached(ttl=60)   # Cache the response for 60 seconds
 async def get_all_books(
     session: AsyncSession = Depends(get_session),
     token_details: dict = Depends(access_token_bearer),

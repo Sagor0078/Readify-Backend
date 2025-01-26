@@ -71,6 +71,16 @@ pip install black
 
 ```
 
+
+## In-Memory Caching
+
+This project uses [aiocache](https://aiocache.readthedocs.io/en/latest/) for in-memory caching. To install `aiocache`, run:
+
+```bash
+pip install aiocache
+```
+
+
 ## Directory
 
 [![Directory docs](img/direct.png)](https://github.com/Sagor0078/Readify-Backend)

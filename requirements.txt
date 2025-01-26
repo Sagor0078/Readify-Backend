@@ -1,3 +1,4 @@
+aiocache==0.12.3
 aioredis==2.0.1
 aiosmtplib==2.0.2
 alembic==1.13.3
