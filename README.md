@@ -70,7 +70,18 @@ To ensure consistent code formatting, this project uses [Black](https://black.re
 pip install black
 
 ```
+## Database Connection Pooling
 
+This project uses SQLAlchemy with connection pooling to manage database connections efficiently. The connection pooling parameters are configured in `src/db/main.py`.
+
+### Configuration
+
+- `pool_size`: Number of connections to keep open inside the connection pool (default: 20).
+- `max_overflow`: Number of connections to allow in overflow (default: 10).
+- `pool_timeout`: Maximum number of seconds to wait for a connection to become available (default: 30).
+- `pool_recycle`: Number of seconds after which a connection is automatically recycled (default: 1800).
+
+These parameters can be adjusted based on application's requirements and the database server's capacity.
 
 ## In-Memory Caching
 
@@ -79,6 +90,21 @@ This project uses [aiocache](https://aiocache.readthedocs.io/en/latest/) for in-
 ```bash
 pip install aiocache
 ```
+
+## Avoiding N+1 Query Problem
+
+To avoid the N+1 query problem, this project uses eager loading with SQLAlchemy. Eager loading can be achieved using `selectinload` or `joinedload` options in your queries.
+
+### Example
+
+In `src/books/routes.py`, the `get_all_books` endpoint uses `selectinload` to eagerly load the related `Author` objects:
+
+```python
+from sqlalchemy.future import select
+from sqlalchemy.orm import selectinload
+```
+
+
 
 
 ## Directory

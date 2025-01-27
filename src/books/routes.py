@@ -10,6 +10,8 @@ from fastapi import FastAPI, APIRouter, status, Depends
 from src.auth.dependencies import AccessTokenBearer, RoleChecker
 from aiocache import cached
 from aiocache.decorators import cached
+from sqlalchemy.future import select
+from sqlalchemy.orm import selectinload
 
 
 from src.errors import(
@@ -29,8 +31,14 @@ async def get_all_books(
     session: AsyncSession = Depends(get_session),
     token_details: dict = Depends(access_token_bearer),
 ):
+    # print(token_details)
+    # books = await book_service.get_all_books(session)
+    # return books
     print(token_details)
-    books = await book_service.get_all_books(session)
+    result = await session.execute(
+        select(Book).options(selectinload(Book.author))  # Eager load the related author
+    )
+    books = result.scalars().all()
     return books
 
 
