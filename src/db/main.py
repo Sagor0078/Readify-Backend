@@ -1,11 +1,21 @@
-from sqlalchemy.ext.asyncio import AsyncEngine
+from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
 from sqlalchemy.orm import sessionmaker
 from sqlmodel import SQLModel, create_engine
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from src.config import Config
 
-async_engine = AsyncEngine(create_engine(url=Config.DATABASE_URL))
+# async_engine = AsyncEngine(create_engine(url=Config.DATABASE_URL))
+
+
+async_engine = create_async_engine(
+    Config.DATABASE_URL,
+    pool_size=20,  # Number of connections to keep open inside the connection pool
+    max_overflow=10,  # Number of connections to allow in overflow
+    pool_timeout=30,  # Maximum number of seconds to wait for a connection to become available
+    pool_recycle=1800,  # Number of seconds after which a connection is automatically recycled
+)
+
 
 
 async def init_db() -> None:
